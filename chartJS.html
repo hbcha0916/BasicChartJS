@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/chart.js" type="text/javascript"></script>
+    <script src="./lib/chart.umd.js" type="text/javascript"></script>
+    <script src="./lib/basicChartJS.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+</head>
+<style>
+    .chartArea{
+        width: 80vw;
+        height: 30vh;
+    }
+    .nullArea{
+    margin: 40px 0 40px 0;
+    }
+</style>
+<body>
+    <div class="chartArea">
+        <canvas id="chartObj"></canvas>
+    </div>
+    <div class="nullArea"></div>
+    <div class="chartArea">
+        <canvas id="chartObj2"></canvas>
+    </div>
+    <div class="nullArea"></div>
+    <div class="chartArea">
+        <canvas id="chartObj3"></canvas>
+    </div>
+</body>
+<script>
+    var sampleData = {
+        "labels":["1","2","3","4","5","6","7","8","9","10"],
+        "data":[10,20,30,40,50,60,70,80,90,100]  
+    }
+
+    var sampleData2 = [
+        {name: "김철수", score: 10},
+        {name: "김영희", score: 50},
+        {name: "김치맨", score: 80},
+        {name: "김존슨", score: 25},
+        {name: "김제리", score: 27},
+        {name: "김밥", score: 92},
+        {name: "김길동", score: 30},
+        {name: "김홍도", score: 43},
+        {name: "김밥나라", score: 100},
+        {name: "김치나라", score: 60}
+    ]
+
+    var testChart = {
+        chartLabels: null,
+        chartDataSets: null,
+        chartOptions: null,
+        init: function(){
+            chartObj = $("#chartObj")[0];
+            this.superinit(chartObj);
+        },
+        getData: function(){
+            this.chartDataSets = [
+                {
+                    label: "샘플데이터1",
+                    data: sampleData.data,
+                    backgroundColor: ['rgba(255, 159, 64, 0.2)'],
+                    borderColor: ['rgb(255, 159, 64)'],
+                    borderWidth: 1
+                }
+            ];
+            this.chartLabels= sampleData.labels;
+            this.chartOptions= {
+                // maintainAspectRatio 차트 비율유지
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+            this.draw();
+        }
+    }
+
+    var testChart2 = {
+        chartLabels: null,
+        chartDataSets: null,
+        chartOptions: null,
+        init: function(){
+            chartObj = $("#chartObj2")[0];
+            this.superinit(chartObj);
+        },
+        getData: function(){
+            // 데이터만 필요한경우 this.setListDataLabel(sampleData2,"","score") 형식도 가능
+            var[labelsList, valueList] = this.setListDataLabel(sampleData2,"name","score");
+            this.chartDataSets = [
+                {
+                    label: "샘플데이터2",
+                    data: valueList,
+                    backgroundColor: ['rgba(255, 0, 64, 0.2)'],
+                    borderColor: ['rgb(255, 0, 64)'],
+                    borderWidth: 1
+                }
+            ];
+            this.chartLabels= labelsList;
+            this.chartOptions= {
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+            this.draw();
+        }
+
+        
+    }
+
+    var testChart3 = {
+        chartLabels: null,
+        chartDataSets: null,
+        chartOptions: null,
+        init: function(){
+            chartObj = $("#chartObj3")[0];
+            this.superinit(chartObj);
+        },
+        getData: function(){
+            var[labelsList, valueList] = this.setListDataLabel(sampleData2,"name","score");
+            this.chartDataSets = [
+                {
+                    label: "샘플데이터2",
+                    data: valueList,
+                    backgroundColor: ['rgba(255, 0, 64, 0.2)'],
+                    borderColor: ['rgb(255, 0, 64)'],
+                    borderWidth: 1
+                },
+                {
+                    label: "샘플데이터1",
+                    data: sampleData.data,
+                    backgroundColor: ['rgba(255, 159, 64, 0.2)'],
+                    borderColor: ['rgb(255, 159, 64)'],
+                    borderWidth: 1
+                }
+            ];
+            this.chartLabels= labelsList;
+            this.chartOptions= {
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+            this.draw();
+        }
+
+        
+    }
+    
+
+    $.extend(true,testChart,basicChartJS);
+    $.extend(true,testChart2,basicChartJS);
+    $.extend(true,testChart3,basicChartJS);
+    testChart.init();
+    testChart.getData();
+    testChart2.init();
+    testChart2.getData();
+    testChart3.init();
+    testChart3.getData();
+  </script>
+</html>
